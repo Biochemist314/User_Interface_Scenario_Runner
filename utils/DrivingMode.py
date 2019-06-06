@@ -21,8 +21,6 @@ class DrivingMode(tk.Frame):
         top_label.pack()
 
         self._parameters = ['ls', '-l']
-        self._thread = threading.Thread(target=self.run)
-        self._thread.daemon = 1
 
         self.bind("<<"+self.__class__.__name__+">>", self._event_call)
 
@@ -36,4 +34,6 @@ class DrivingMode(tk.Frame):
     def _event_call(self, event):
         print(self.__class__.__name__)
         print("event -> "+str(event))
+        self._thread = threading.Thread(target=self.run)
+        self._thread.daemon = 1
         self._thread.start()

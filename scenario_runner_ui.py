@@ -60,7 +60,7 @@ class ScenarioRunnerApp(tk.Tk):
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("StartPage")
-        self.geometry("1024x768")  # You want the size of the app to be 500x500
+        self.geometry("1400x900")  # You want the size of the app to be 500x500
         self.resizable(0, 0)  # Don't allow resizing in the x or y direction
 
         self.bind("<<"+self.__class__.__name__+">>", self._event_call)

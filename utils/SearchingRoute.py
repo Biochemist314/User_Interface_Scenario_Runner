@@ -16,14 +16,12 @@ class SearchingRoute(tk.Frame):
 
         self._video_running = True
 
-        video_name = "routes.mp4"  # This is your video file path
-        my_video = imageio.get_reader(video_name)
+        self._video_name = "routes.mp4"  # This is your video file path
+        self._video = imageio.get_reader(self._video_name)
 
-        my_label = tk.Label(labelframe1)
-
-        my_label.pack()
-        self._thread = threading.Thread(target=self.stream, args=(my_video, my_label))
-        self._thread.daemon = 1
+        self._label = tk.Label(labelframe1)
+        self._label.pack()
+        self._label.place(anchor="c", relx=.5, rely=.5)
 
         self.bind("<<" + self.__class__.__name__ + ">>", self._event_call)
 
@@ -37,5 +35,7 @@ class SearchingRoute(tk.Frame):
     def _event_call(self, event):
         print(self.__class__.__name__)
         print("event -> "+str(event))
+        self._thread = threading.Thread(target=self.stream, args=(self._video, self._label))
+        self._thread.daemon = 1
         self._thread.start()
 
