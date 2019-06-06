@@ -6,39 +6,36 @@ from PIL import Image, ImageTk
 class SearchingRoute(tk.Frame):
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-        label = tk.Label(self, text=controller.frames["ChooseTown"].scenario_selected, font=controller.title_font)
+        super().__init__(parent)
+        self._controller = controller
+        label = tk.Label(self, text=controller.selected_scenario, font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        select_scenario = tk.Button(self,text="Would you like to play?",
-                                    command = lambda:controller.show_frame("PopulateScenario"))
-        select_scenario.pack()
+        labelframe1 = tk.LabelFrame(self, text="Searching for interesting route...")
+        labelframe1.pack(fill="both", expand="yes")
 
-        self._video_end = False
-
-        # button = tk.Button(self, text="Go to the start page", command=lambda: controller.show_frame("StartPage"))
-        # button.pack()
+        self._video_running = True
 
         video_name = "routes.mp4"  # This is your video file path
         my_video = imageio.get_reader(video_name)
 
-        my_label = tk.Label(self)
+        my_label = tk.Label(labelframe1)
 
         my_label.pack()
-        thread = threading.Thread(target=self.stream, args=(my_video, my_label))
-        thread.daemon = 1
-        thread.start()
+        self._thread = threading.Thread(target=self.stream, args=(my_video, my_label))
+        self._thread.daemon = 1
 
-        self.bind(self.__class__.__name__, self.eventCall)
+        self.bind("<<" + self.__class__.__name__ + ">>", self._event_call)
 
-    def stream(self,video, label):
-
+    def stream(self, video, label):
         for image in video.iter_data():
             frame_image = ImageTk.PhotoImage(Image.fromarray(image))
             label.config(image=frame_image)
             label.image = frame_image
-        self._video_end = True
+        self._controller.show_frame("PopulateScenario")
 
-    def eventCall(self, event):
-        print(event)
+    def _event_call(self, event):
+        print(self.__class__.__name__)
+        print("event -> "+str(event))
+        self._thread.start()
+

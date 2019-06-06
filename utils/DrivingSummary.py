@@ -1,29 +1,31 @@
+import time
 import tkinter as tk
+from tkinter import font as tkfont
+
 
 
 class DrivingSummary(tk.Frame):
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-        label = tk.Label(self, text="Scenario 1", font=controller.title_font)
+        super().__init__(parent)
+        self._controller = controller
+        label = tk.Label(self, text="Driving summary", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
+        labelframe1 = tk.LabelFrame(self, text="Adding pedestrians, cyclists and vehicles...")
+        labelframe1.pack(fill="both", expand="yes")
 
+        text_font = tkfont.Font(family='Helvetica', size=25, weight="bold", slant="italic")
+        toplabel = tk.Label(labelframe1, text="Place to put the positive comments", font=text_font)
+        toplabel.pack()
+        toplabel.place(anchor="c", relx=.5, rely=.5)
 
-        select_scenario = tk.Button(self,text="Would you like to play?"
-                                    ,command = lambda:controller.show_frame("PageThree"))
-        select_scenario.pack()
+        button1 = tk.Button(self, text="Back to start menu", command=lambda: controller.show_frame("StartPage"))
+        button1.focus()
+        button1.pack()
 
-        button = tk.Button(self, text="Go to the start page", command=lambda: controller.show_frame("StartPage"))
-        button.pack()
+        self.bind("<<"+self.__class__.__name__+">>", self._event_call)
 
-        photo = tk.PhotoImage(file="scenario.gif")
-        scenicroute = tk.Label(self,image=photo)
-        scenicroute.image = photo
-        scenicroute.pack()
-
-        self.bind(self.__class__.__name__, self.eventCall)
-
-    def eventCall(self, event):
-        print(event)
+    def _event_call(self, event):
+        print(self.__class__.__name__)
+        print("event -> " + str(event))
