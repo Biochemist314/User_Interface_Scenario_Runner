@@ -9,8 +9,8 @@ class SearchingRoute(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self._controller = controller
-
-        labelframe1 = tk.LabelFrame(self, text="Searching for interesting route...", font=controller.title_font)
+        self.configure(background='#67BFFF')
+        labelframe1 = tk.LabelFrame(self, text="Searching for interesting route...", font=controller.title_font,bg='#67BFFF')
         labelframe1.pack(fill="both", expand="yes")
 
         self._video_running = True
@@ -21,7 +21,7 @@ class SearchingRoute(tk.Frame):
 
         scenario = self._controller.selected_scenario
 
-        self._description = tk.Label(self, text=scenario.description, font=controller.title_font)
+        self._description = tk.Label(self, text=scenario.description, font=controller.title_font,bg='#67BFFF')
         self._description.pack(side="top", fill="x", pady=10)
 
         self.bind("<<" + self.__class__.__name__ + ">>", self._event_call)

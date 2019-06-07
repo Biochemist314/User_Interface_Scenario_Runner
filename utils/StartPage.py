@@ -8,14 +8,15 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self._controller = controller
-        label = tk.Label(self, text="Welcome to CARLA ScenarioRunner v1.0", font=controller.title_font)
+        self.configure(background='#67BFFF')
+        label = tk.Label(self, text="Welcome to CARLA ScenarioRunner v1.0", font=controller.title_font,bg='#67BFFF')
         label.pack(side="top", fill="x", pady=10)
 
         simage = Image.open("car.png")
         sphoto = ImageTk.PhotoImage(simage)
         slabel = tk.Label(image=sphoto)
         slabel.image = sphoto
-        button1 = tk.Button(self, image=sphoto, text="Start Scenario (\u21b5)", compound=tk.TOP, command=lambda: controller.show_frame("ExperimentInfo"), font=controller.title_font)
+        button1 = tk.Button(self, image=sphoto, text="Start Scenario (\u21b5)", compound=tk.TOP, command=lambda: controller.show_frame("ExperimentInfo"), font=controller.title_font,bg='#FF9A2E')
         button1.focus()
         button1.pack()
         button1.place(anchor="c", relx=.5, rely=.5)
