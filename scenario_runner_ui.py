@@ -21,6 +21,7 @@ class ScenarioRunnerApp(tk.Tk):
     timeout_ExperimentInfo   = 1
     timeout_SearchingRoute   = 1
     timeout_PopulateScenario = 1
+    timeout_DrivingMode      = 1
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

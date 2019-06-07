@@ -30,7 +30,7 @@ class DrivingMode(tk.Frame):
         print(command)
         subprocess.run(command, stdout=sys.stdout, stderr=subprocess.PIPE)
 
-        time.sleep(5)
+        time.sleep(self._controller.timeout_DrivingMode)
         self._controller.show_frame("DrivingSummary")
 
     def _event_call(self, event):
