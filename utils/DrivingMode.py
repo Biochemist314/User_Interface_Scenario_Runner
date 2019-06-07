@@ -2,7 +2,7 @@ import subprocess
 import sys
 import tkinter as tk, threading
 from tkinter import font as tkfont
-
+import time
 
 class DrivingMode(tk.Frame):
 
@@ -29,6 +29,7 @@ class DrivingMode(tk.Frame):
         print(command)
         subprocess.run(command, stdout=sys.stdout, stderr=subprocess.PIPE)
 
+        time.sleep(5)
         self._controller.show_frame("DrivingSummary")
 
     def _event_call(self, event):

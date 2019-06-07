@@ -2,7 +2,6 @@ import time
 import tkinter as tk
 from tkinter import font as tkfont
 
-
 class PopulateScenario(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -24,5 +23,5 @@ class PopulateScenario(tk.Frame):
     def _event_call(self, event):
         print(self.__class__.__name__)
         print("event -> " + str(event))
-        time.sleep(2)
+        time.sleep(self._controller.timeout_PopulateScenario)
         self._controller.show_frame("DrivingMode")

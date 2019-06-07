@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-
+import random
 
 
 class StartPage(tk.Frame):
@@ -15,7 +15,7 @@ class StartPage(tk.Frame):
         sphoto = ImageTk.PhotoImage(simage)
         slabel = tk.Label(image=sphoto)
         slabel.image = sphoto
-        button1 = tk.Button(self, image=sphoto, text="Start Scenario (\u21b5)", compound=tk.TOP, command=lambda: controller.show_frame("ExperimentInfo"))
+        button1 = tk.Button(self, image=sphoto, text="Start Scenario (\u21b5)", compound=tk.TOP, command=lambda: controller.show_frame("ExperimentInfo"), font=controller.title_font)
         button1.focus()
         button1.pack()
         button1.place(anchor="c", relx=.5, rely=.5)
@@ -23,4 +23,5 @@ class StartPage(tk.Frame):
         self.bind("<<"+self.__class__.__name__+">>", self._event_call)
 
     def _event_call(self, event):
-        print(event)
+        key = random.choice(list(self._controller.map_of_scenarios.keys()))
+        self._controller.selected_scenario = self._controller.map_of_scenarios[key]

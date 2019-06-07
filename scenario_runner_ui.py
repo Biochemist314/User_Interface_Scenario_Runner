@@ -1,26 +1,32 @@
 import os
 import random
-
+import ntpath
 import tkinter as tk
 from tkinter import font as tkfont
+import xml.etree.ElementTree as ET
+
 
 from utils.StartPage import StartPage
 from utils.ExperimentInfo import ExperimentInfo
-from utils.ChooseTown import ChooseTown
 from utils.SearchingRoute import SearchingRoute
 from utils.PopulateScenario import PopulateScenario
 from utils.DrivingMode import DrivingMode
 from utils.DrivingSummary import DrivingSummary
+from utils.Scenario import Scenario
 
 
 class ScenarioRunnerApp(tk.Tk):
+
+    timeout_ExperimentInfo   = 10
+    timeout_SearchingRoute   = 10
+    timeout_PopulateScenario = 5
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.title("Carla Scenario Runner UI")
 
-        self.title_font = tkfont.Font(family='Helvetica', size=10, slant="italic")
+        self.title_font = tkfont.Font(family='Arial', size=20)
 
         self.map_of_scenarios = {}
 
@@ -28,16 +34,16 @@ class ScenarioRunnerApp(tk.Tk):
 
 
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        with open(os.path.join(dir_path,".list_of_scenarios"), "r") as f:
+        with open(os.path.join(dir_path, ".list_of_scenarios"), "r") as f:
             counter = 0
             lines = f.read().splitlines()
             for line in lines:
                 print(">>"+line)
-                self.map_of_scenarios[line] = line
+                xml_fname = ntpath.basename(line)
+                self.map_of_scenarios[xml_fname] = loadXml(line)
                 counter += 1
 
         key = random.choice(list(self.map_of_scenarios.keys()))
-
         self.selected_scenario = self.map_of_scenarios[key]
 
         # the container is where we'll stack a bunch of frames
@@ -73,9 +79,39 @@ class ScenarioRunnerApp(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
         frame.update()
-        print(page_name)
-        frame.event_generate("<<"+page_name+">>")
+        # print(page_name)
+        frame.event_generate("<<" + page_name + ">>")
 
+
+def loadXml(xml_path):
+    tree = ET.parse(xml_path)
+    for scenario in tree.iter("scenario"):
+        name = set_attrib(scenario, "name", "Scenario example")
+        town = set_attrib(scenario, "town", "Town example")
+        for node in scenario.iter("description"):
+            goal        = set_attrib(node, "goal", "Follow the red line and have fun!")
+            description = set_attrib(node, "description", "Follow the red line!")
+            criteria    = set_attrib(node, "criteria", "Do not crash!")
+            timeout     = int(set_attrib(node, "timeout", 60))
+            a_scenario = Scenario(
+                xml_file=xml_path,
+                name=name,
+                description=description,
+                town=town,
+                goal=goal,
+                timeout=timeout,
+                criteria=criteria,
+                snapshot=name+".mp4"
+            )
+            return a_scenario
+
+
+def set_attrib(node, key, default):
+    """
+    Parse XML key for a given node
+    If key does not exist, use default value
+    """
+    return node.attrib[key] if key in node.attrib else default
 
 if __name__ == "__main__":
     app = ScenarioRunnerApp()

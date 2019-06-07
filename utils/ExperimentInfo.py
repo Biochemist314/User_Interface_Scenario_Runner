@@ -11,11 +11,12 @@ class ExperimentInfo(tk.Frame):
         # label = tk.Label(self, text="Experiment Information", font=controller.title_font)
         # label.pack(side="top", fill="x", pady=10)
 
-        labelframe1 = tk.LabelFrame(self, text="Experiment Information")
+        labelframe1 = tk.LabelFrame(self, text="Experiment Information", font=controller.title_font)
         labelframe1.pack(fill="both", expand="yes")
 
         text_font = tkfont.Font(family='Helvetica', size=25, weight="bold", slant="italic")
-        ilabel = tk.Label(labelframe1, text='Self-driving vehicles are controlled by Artificial Intelligence (AI).\n\n'
+        ilabel = tk.Label(labelframe1, text='Self-driving vehicles are controlled by Artificial Intelligence (AI).\n'
+                                            'Alternatively, AIs can also be used for testing their safety!\n\n'
                                             'The goal of this experiment is to show how AI can be used to\n'
                                             'assess the safety of self-driving vehicles.', font=text_font)
         ilabel.pack()
@@ -26,5 +27,5 @@ class ExperimentInfo(tk.Frame):
     def _event_call(self, event):
         print(self.__class__.__name__)
         print("event -> " + str(event))
-        time.sleep(10)
+        time.sleep(self._controller.timeout_ExperimentInfo)
         self._controller.show_frame("SearchingRoute")
