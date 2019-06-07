@@ -2,7 +2,7 @@ import time
 import tkinter as tk
 from tkinter import font as tkfont
 
-
+#2nd frame showing some infor about the AI and simulator.
 class ExperimentInfo(tk.Frame):
 
     def __init__(self, parent, controller):

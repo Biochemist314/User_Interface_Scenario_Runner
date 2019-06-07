@@ -4,6 +4,7 @@ import tkinter as tk, threading
 from tkinter import font as tkfont
 import time
 
+#This is what runs the simiulator calling upon Scenario Runer
 class DrivingMode(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -30,7 +31,7 @@ class DrivingMode(tk.Frame):
         print(command)
         subprocess.run(command, stdout=sys.stdout, stderr=subprocess.PIPE)
 
-        time.sleep(5)
+        time.sleep(self._controller.timeout_DrivingMode)
         self._controller.show_frame("DrivingSummary")
 
     def _event_call(self, event):

@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import font as tkfont
 from PIL import Image,ImageTk
 
+##Populating the scenario showing icons with the weather, cyclists,cars and etc.
 class PopulateScenario(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -55,7 +56,7 @@ class PopulateScenario(tk.Frame):
         tlabel.image = carphoto
         ulabel = tk.Label(labelframe1, image=carphoto,bg='#67BFFF')
         ulabel.grid(row=0,column=3)
-
+        #Ways to make an image smaller. From tk using PIL#
         #labelframe1.place(anchor="c", relx=.5, rely=.2)
 
 
@@ -72,3 +73,4 @@ class PopulateScenario(tk.Frame):
         print("event -> " + str(event))
         time.sleep(self._controller.timeout_PopulateScenario)
         self._controller.show_frame("DrivingMode")
+        #The event to go to the Driving MOde

@@ -5,6 +5,7 @@ import time
 import os
 import configparser
 
+#When it is showing the video running 
 class SearchingRoute(tk.Frame):
 
     def __init__(self, parent, controller):

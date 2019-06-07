@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import font as tkfont
 
+#This is currrently not really being run.
 class ChooseTown(tk.Frame):
 
     def __init__(self, parent, controller):
