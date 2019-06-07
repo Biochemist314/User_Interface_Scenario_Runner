@@ -16,7 +16,7 @@ class PopulateScenario(tk.Frame):
         labelframe1.pack(fill="both", expand="yes")
 
 
-        '''cycleimage= Image.open("cyclist.png")
+        cycleimage= Image.open("cyclist.png")
         width = 128
         height = 128
         smallcyclephoto = cycleimage.resize((width,height),Image.ANTIALIAS)
@@ -54,7 +54,7 @@ class PopulateScenario(tk.Frame):
         tlabel = tk.Label(image=carphoto)
         tlabel.image = carphoto
         ulabel = tk.Label(labelframe1, image=carphoto,bg='#67BFFF')
-        ulabel.grid(row=0,column=3)'''
+        ulabel.grid(row=0,column=3)
 
         #labelframe1.place(anchor="c", relx=.5, rely=.2)
 

@@ -21,7 +21,7 @@ class DrivingMode(tk.Frame):
         top_label = tk.Label(labelframe1, text="The simulation will soon begin.", font=text_font,bg='#67BFFF')
         top_label.pack()
 
-        self._parameters = ['ls', '-l']
+        self._parameters = [self._controller.bash_path]
 
         self.bind("<<"+self.__class__.__name__+">>", self._event_call)
 

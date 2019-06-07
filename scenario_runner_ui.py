@@ -4,6 +4,7 @@ import ntpath
 import tkinter as tk
 from tkinter import font as tkfont
 import xml.etree.ElementTree as ET
+import configparser
 
 
 from utils.StartPage import StartPage
@@ -17,9 +18,9 @@ from utils.Scenario import Scenario
 
 class ScenarioRunnerApp(tk.Tk):
 
-    timeout_ExperimentInfo   = 10
-    timeout_SearchingRoute   = 10
-    timeout_PopulateScenario = 5
+    timeout_ExperimentInfo   = 1
+    timeout_SearchingRoute   = 1
+    timeout_PopulateScenario = 1
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -32,9 +33,13 @@ class ScenarioRunnerApp(tk.Tk):
 
         self.selected_scenario = None
 
+        config = configparser.RawConfigParser()
+        config.read('scenarios.conf')
+
+        self.bash_path = config.get('DEFAULT', 'bash_path')
 
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        with open(os.path.join(dir_path, ".list_of_scenarios"), "r") as f:
+        with open(os.path.join(dir_path, "scenarios.list"), "r") as f:
             counter = 0
             lines = f.read().splitlines()
             for line in lines:
